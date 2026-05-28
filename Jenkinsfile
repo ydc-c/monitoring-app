@@ -20,11 +20,13 @@ pipeline {
             }
         }
 
-	stage('Security Scan') {
-	    steps {
-            sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 0 --severity HIGH,CRITICAL fontysuser/monitoring-app:$BUILD_NUMBER'
-    }
-}        stage('Push to Docker Hub') {
+        stage('Security Scan') {
+            steps {
+                sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 0 --severity HIGH,CRITICAL $IMAGE_NAME:$BUILD_NUMBER'
+            }
+        }
+
+        stage('Push to Docker Hub') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh 'docker push $IMAGE_NAME:$BUILD_NUMBER'
