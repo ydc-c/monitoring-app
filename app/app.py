@@ -24,7 +24,7 @@ def index():
         db_status = f"Niet verbonden: {e}"
 
     return f"""
-    <h1>The Knowledge Hub — Monitoring</h1>
+    <h1>The Knowledge Hub — Monitoring v2</h1>
     <p>Tijdstip: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
     <p>Database status: {db_status}</p>
     """
