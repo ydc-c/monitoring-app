@@ -3,7 +3,10 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        IMAGE_NAME = 'fontysuser/monitoring-app'
+        DB_USER     = credentials('db-user')
+        DB_PASSWORD = credentials('db-password')
+        DB_NAME     = credentials('db-name')
+        IMAGE_NAME  = 'fontysuser/monitoring-app'
     }
 
     stages {
@@ -38,7 +41,7 @@ pipeline {
             steps {
                 sh 'docker stop monitoring-app-flask-app-1 || true'
                 sh 'docker rm monitoring-app-flask-app-1 || true'
-                sh 'docker run -d --name monitoring-app-flask-app-1 --network monitoring-app_default -p 5000:5000 -e DB_HOST=postgres -e DB_NAME=monitoring -e DB_USER=admin -e DB_PASSWORD=password $IMAGE_NAME:latest'
+                sh 'docker run -d --name monitoring-app-flask-app-1 --network monitoring-app_default -p 5000:5000 -e DB_HOST=postgres -e DB_NAME=$DB_NAME -e DB_USER=$DB_USER -e DB_PASSWORD=$DB_PASSWORD $IMAGE_NAME:latest'
             }
         }
     }
