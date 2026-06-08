@@ -5,14 +5,16 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+
 def get_db_connection():
     conn = psycopg2.connect(
-	host=os.environ.get('DB_HOST'),
-	database=os.environ.get('DB_NAME'),
-	user=os.environ.get('DB_USER'),
-	password=os.environ.get('DB_PASSWORD')
+        host=os.environ.get('DB_HOST'),
+        database=os.environ.get('DB_NAME'),
+        user=os.environ.get('DB_USER'),
+        password=os.environ.get('DB_PASSWORD')
     )
     return conn
+
 
 @app.route('/')
 def index():
@@ -22,12 +24,12 @@ def index():
         conn.close()
     except Exception as e:
         db_status = f"Niet verbonden: {e}"
-
     return f"""
     <h1>The Knowledge Hub — hallo test v1</h1>
     <p>Tijdstip: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
     <p>Database status: {db_status}</p>
     """
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
