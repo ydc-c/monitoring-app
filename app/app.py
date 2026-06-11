@@ -25,7 +25,7 @@ def index():
     except Exception as e:
         db_status = f"Niet verbonden: {e}"
     return f"""
-    <h1>The Knowledge Hub — hallo test v1</h1>
+    <h1>The Knowledge Hub — Welkom v20</h1>
     <p>Tijdstip: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
     <p>Database status: {db_status}</p>
     """
